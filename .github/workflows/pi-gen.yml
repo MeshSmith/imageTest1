@@ -1,0 +1,23 @@
+name: Build Raspberry Pi Image
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build image
+        uses: usimd/pi-gen-action@v1
+        with:
+          image-name: 'MeshSmith-Trixie-Lite'
+          release: 'trixie'
+          pi-gen-version: 'arm64'
+          stage-list: 'stage0 stage1 stage2'
+          enable-ssh: 1
+          password: 'raspberry'
+          verbose-output: true
+          compression: 'zip'
