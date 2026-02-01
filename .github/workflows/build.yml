@@ -19,7 +19,8 @@ jobs:
           sudo apt-get install -y --no-install-recommends \
             coreutils quilt parted qemu-user-static debootstrap zerofree zip \
             dosfstools libarchive-tools arch-test rsync xz-utils curl git ca-certificates \
-            binfmt-support
+            binfmt-support \
+            debian-archive-keyring debian-keyring gnupg gpgv dirmngr
 
       - name: Clone pi-gen (arm64 branch)
         run: |
