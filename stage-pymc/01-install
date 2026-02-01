@@ -1,9 +1,0 @@
-libffi-dev
-jq
-python3-pip
-python3-rrdtool
-wget
-swig
-build-essential
-python3-dev
-git
