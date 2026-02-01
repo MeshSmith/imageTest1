@@ -26,6 +26,7 @@ jobs:
         run: |
           git clone --depth=1 --branch arm64 https://github.com/RPi-Distro/pi-gen.git
           cp config pi-gen/config
+          cp -r stage0 pi-gen/
           cp -r stage-meshsmith pi-gen/
 
       - name: Build image
