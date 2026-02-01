@@ -3,6 +3,10 @@
 # This runs OUTSIDE the chroot and can write into the rootfs via $ROOTFS_DIR
 # We copy Debian archive keyrings into the target rootfs so apt can verify InRelease signatures.
 
+if [ ! -d "${ROOTFS_DIR}" ]; then
+	bootstrap ${RELEASE} "${ROOTFS_DIR}" http://raspbian.raspberrypi.com/raspbian/
+fi
+
 install -d -m 0755 "${ROOTFS_DIR}/etc/apt/trusted.gpg.d"
 install -d -m 0755 "${ROOTFS_DIR}/usr/share/keyrings"
 
