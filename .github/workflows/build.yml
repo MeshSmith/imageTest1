@@ -1,0 +1,31 @@
+name: Build PiMesh pyMC_Repeater Image
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Clone pi-gen
+        run: |
+          git clone --depth=1 https://github.com/RPi-Distro/pi-gen.git
+          cp config pi-gen/config
+          cp -r stage-meshsmith pi-gen/
+
+      - name: Build image
+        run: |
+          cd pi-gen
+          sudo ./build.sh
+
+      - name: Upload image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pimesh-pymc-repeater-image
+          path: pi-gen/deploy/*
