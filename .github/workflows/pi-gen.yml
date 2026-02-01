@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build image
+        id: build
         uses: usimd/pi-gen-action@v1
         with:
           image-name: 'MeshSmith-Trixie-Lite'
@@ -21,3 +22,9 @@ jobs:
           password: 'raspberry'
           verbose-output: true
           compression: 'zip'
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MeshSmith-Trixie-Lite
+          path: ${{ steps.build.outputs.image-path }}
