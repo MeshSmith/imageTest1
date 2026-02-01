@@ -1,4 +1,4 @@
-name: Build PiMesh pyMC_Repeater Image
+name: Build PiMesh pyMC_Repeater Image (arm64)
 
 on:
   workflow_dispatch:
@@ -13,9 +13,17 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Clone pi-gen
+      - name: Install pi-gen dependencies
         run: |
-          git clone --depth=1 https://github.com/RPi-Distro/pi-gen.git
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            coreutils quilt parted qemu-user-static debootstrap zerofree zip \
+            dosfstools libarchive-tools arch-test rsync xz-utils curl git ca-certificates \
+            binfmt-support
+
+      - name: Clone pi-gen (arm64 branch)
+        run: |
+          git clone --depth=1 --branch arm64 https://github.com/RPi-Distro/pi-gen.git
           cp config pi-gen/config
           cp -r stage-meshsmith pi-gen/
 
@@ -27,5 +35,5 @@ jobs:
       - name: Upload image artifact
         uses: actions/upload-artifact@v4
         with:
-          name: pimesh-pymc-repeater-image
+          name: pimesh-pymc-repeater-arm64-image
           path: pi-gen/deploy/*
